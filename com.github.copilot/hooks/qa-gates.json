@@ -4,8 +4,8 @@
   "hooks": {
     "sessionStart": [
       {
-        "powershell": "Write-Host '[QA-Hook: sessionStart] Copilot Agent session started. Testing framework: Playwright (TypeScript).'",
-        "bash": "echo '[QA-Hook: sessionStart] Copilot Agent session started. Testing framework: Playwright (TypeScript).'",
+        "powershell": "Write-Host '[QA-Hook: sessionStart] Copilot QA Agent session started. Stack: Java 17+ / Maven / Playwright Java / JUnit 5.'",
+        "bash": "echo '[QA-Hook: sessionStart] Copilot QA Agent session started. Stack: Java 17+ / Maven / Playwright Java / JUnit 5.'",
         "description": "Initialize agent context and verify test runtime"
       }
     ],
@@ -25,15 +25,15 @@
     ],
     "postToolUse": [
       {
-        "powershell": "Write-Host '[QA-Hook: postToolUse] Code generation detected. Validating syntax...'",
-        "bash": "echo '[QA-Hook: postToolUse] Code generation detected. Validating syntax...'",
+        "powershell": "Write-Host '[QA-Hook: postToolUse] Tool execution completed. Enforcing QA quality rules...'",
+        "bash": "echo '[QA-Hook: postToolUse] Tool execution completed. Enforcing QA quality rules...'",
         "description": "Trigger automated quality and formatting checks after tool use"
       }
     ],
     "sessionEnd": [
       {
-        "powershell": "Write-Host '[QA-Hook: sessionEnd] QA Agent session concluded. Ready for CI/CD.'",
-        "bash": "echo '[QA-Hook: sessionEnd] QA Agent session concluded. Ready for CI/CD.'",
+        "powershell": "Write-Host '[QA-Hook: sessionEnd] QA Agent session concluded. Verification artifacts logged.'",
+        "bash": "echo '[QA-Hook: sessionEnd] QA Agent session concluded. Verification artifacts logged.'",
         "description": "Cleanup and session summary"
       }
     ]

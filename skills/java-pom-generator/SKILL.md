@@ -1,43 +1,70 @@
 ---
-name: "pom-generator"
-description: "Guidelines and templates for designing clean, resilient Page Object Models for Playwright in TypeScript."
+name: "java-pom-generator"
+description: "Guidelines and templates for designing clean, resilient Page Object Models for Playwright in Java 17+ with JUnit 5."
 ---
 
-# Page Object Model Generator Skill
+# Java Page Object Model (POM) Generator Skill
 
-Use this skill whenever generating or refactoring Page Objects for web test automation.
+Use this skill whenever generating, auditing, or refactoring Page Object classes for Java Playwright test automation.
 
-## Design Rules
-1. **Single Responsibility**: Each Page Object should represent one page or a well-defined reusable component (e.g. Navigation Bar, Modal, Table).
+## Core Design Principles
+1. **Single Responsibility**: Each Page Object represents a single page or distinct reusable UI component (e.g., `NavbarComponent`, `LeavePage`, `LoginPage`).
 2. **Encapsulation**:
-   - Internal locators should be private or exposed via descriptive getters.
-   - Action methods should model user intents (`applyForLeave(data)`), not low-level clicks (`clickApplyButton()`).
-3. **Resilience**:
-   - Always prefer Playwright built-in locators (`getByRole`, `getByLabel`, `getByPlaceholder`).
-   - For custom dropdowns (like OrangeHRM's custom dropdown divs), use combined locator patterns rather than raw XPath.
+   - Locators (`Locator`) are private or protected fields initialized in constructor using `page.getByRole(...)`, `page.getByLabel(...)`, or `page.getByPlaceholder(...)`.
+   - Never expose raw Playwright locators directly to tests; expose intent-based action methods (e.g., `login(username, password)`, `applyLeave(...)`).
+3. **Inheritance**:
+   - All Page Objects extend `BasePage` (`com.orangehrm.pages.BasePage`).
+4. **State Queries vs Assertions**:
+   - Page Objects must **NEVER** contain JUnit/AssertJ assertions.
+   - Return booleans, element text, or counts (e.g., `isUserLoggedIn()`, `getErrorMessageText()`, `getRequiredErrorsCount()`) and let the test class assert against them.
 
-## Template:
-```typescript
-import { Page, Locator } from '@playwright/test';
+---
 
-export class FeaturePage {
-  readonly page: Page;
-  readonly mainHeading: Locator;
-  readonly submitButton: Locator;
+## Standard Java Playwright POM Template
 
-  constructor(page: Page) {
-    this.page = page;
-    this.mainHeading = page.getByRole('heading', { level: 6 });
-    this.submitButton = page.getByRole('button', { name: 'Save' });
-  }
+```java
+package com.orangehrm.pages;
 
-  async navigate(): Promise<void> {
-    await this.page.goto('/web/index.php/feature/view');
-  }
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 
-  async performAction(value: string): Promise<void> {
-    // Fill and submit
-    await this.submitButton.click();
-  }
+/**
+ * Page Object representing OrangeHRM Feature Page.
+ */
+public class FeaturePage extends BasePage {
+
+    // Locators
+    private final Locator pageHeading;
+    private final Locator inputField;
+    private final Locator submitButton;
+    private final Locator successToast;
+    private final Locator errorMessage;
+
+    public FeaturePage(Page page) {
+        super(page);
+        this.pageHeading = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setLevel(6));
+        this.inputField = page.getByPlaceholder("Enter value");
+        this.submitButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Save"));
+        this.successToast = page.locator(".oxd-toast--success");
+        this.errorMessage = page.locator(".oxd-input-field-error-message");
+    }
+
+    public void navigate() {
+        page.navigate("/web/index.php/feature/view");
+    }
+
+    public void enterValueAndSubmit(String value) {
+        inputField.fill(value);
+        submitButton.click();
+    }
+
+    public boolean isSuccessToastVisible() {
+        return successToast.isVisible();
+    }
+
+    public String getErrorMessageText() {
+        return errorMessage.innerText();
+    }
 }
 ```

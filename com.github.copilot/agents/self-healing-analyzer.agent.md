@@ -5,7 +5,8 @@ tools:
   - "com.atlassian/atlassian-mcp-server"
   - "terminal"
 handoffs:
-  - "qa-file-bug"
+  - "qa-orchestrator"
+  - "test-scripts-creator"
 ---
 
 # Persona & Mission
