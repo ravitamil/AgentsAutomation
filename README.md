@@ -29,12 +29,14 @@ AgentsAutomation/
 │   └── java-pom-generator/SKILL.md
 ├── com.github.copilot/               <-- Copilot Agent Assets
 │   ├── agents/
-│   │   ├── story-analyst.agent.md    <-- 1. Story Analysis Agent
-│   │   ├── qa-estimator.agent.md     <-- 2. QA Estimation Agent
+│   │   ├── qa-orchestrator.agent.md  <-- 🎯 MASTER ORCHESTRATOR & CONDUCTOR
+│   │   ├── story-analyst.agent.md    <-- 1. Story Analysis Specialist
+│   │   ├── qa-estimator.agent.md     <-- 2. QA Estimation Specialist
 │   │   ├── test-cases-creator.agent.md<-- 3. Confluence Test Matrix Publisher
 │   │   ├── test-scripts-creator.agent.md<-- 4. Java Playwright SDET Agent
 │   │   └── self-healing-analyzer.agent.md<-- 5. Trace Self-Healing Agent
 │   ├── prompts/
+│   │   ├── qa-orchestrate.prompt.md  <-- /qa-orchestrate (Natural Language Entrypoint)
 │   │   ├── qa-analyze-story.prompt.md
 │   │   ├── qa-estimate-story.prompt.md
 │   │   ├── qa-generate-testcases.prompt.md
