@@ -57,7 +57,7 @@ AgentsAutomation/
 Any developer or QA engineer can install the plugin directly into their local environment:
 ```bash
 # Using GitHub Copilot CLI or VS Code Agent CLI:
-copilot plugin install https://github.com/<your-org>/AgentsAutomation
+copilot plugin install https://github.com/ravitamil/AgentsAutomation
 ```
 
 ### Method 2: Register as an Internal Marketplace in VS Code
@@ -67,7 +67,7 @@ To distribute across an entire engineering team via the VS Code GUI:
 2. Add your repository URL:
    ```json
    "chat.agentPlugins.marketplaces": [
-     "https://github.com/<your-org>/AgentsAutomation"
+     "https://github.com/ravitamil/AgentsAutomation"
    ]
    ```
 3. Open **Copilot Chat** in VS Code ➔ Click the **Configure Chat (Gear Icon)** ➔ Browse Marketplace ➔ Click **Install** on `qa-agents-automation`.
@@ -76,7 +76,7 @@ To distribute across an entire engineering team via the VS Code GUI:
 ### Method 3: Organization-Wide Deployment (Zero Configuration for Users)
 If your company uses a GitHub Organization:
 1. Push this repository contents to your organization's default config repository:  
-   `https://github.com/<your-org>/.github` or `<your-org>/.github-private`
+   `https://github.com/ravitamil/.github` or `ravitamil/.github-private`
 2. Every engineer and QA member in the organization automatically inherits all custom agents and prompts across all repositories with **zero manual installation**.
 
 ---
