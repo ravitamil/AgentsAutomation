@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qa-agents-automation",
+  "version": "1.0.0",
+  "description": "Enterprise QA Agentic Automation Plugin for GitHub Copilot in VS Code. Integrates Jira, Confluence, Java Playwright POM, and Trace Self-Healing.",
+  "author": {
+    "name": "QA Automation & AI Guild",
+    "email": "travitamil@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "qa",
+    "testing",
+    "playwright",
+    "java",
+    "jira",
+    "confluence",
+    "copilot-agent",
+    "self-healing",
+    "trace-viewer"
+  ],
+  "capabilities": {
+    "agents": true,
+    "prompts": true,
+    "skills": true,
+    "hooks": true,
+    "mcp": true
+  }
+}
