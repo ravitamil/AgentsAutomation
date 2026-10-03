@@ -51,8 +51,12 @@ AgentsAutomation/
 │   ├── hooks/
 │   │   └── hooks.json                <-- PreToolUse security gates & session audit hooks
 │   └── instructions/
-│       ├── copilot-instructions.md   <-- Project-wide Java POM & HITL rules
-│       └── e2e-tests.instructions.md <-- Path-scoped instructions for src/test/java/**
+│       ├── copilot-instructions.md       <-- Project-wide Java POM & HITL rules
+│       ├── page-objects.instructions.md  <-- Scoped to src/main/java/com/orangehrm/pages/**
+│       ├── e2e-tests.instructions.md     <-- Scoped to src/test/java/com/orangehrm/tests/**
+│       ├── maven-build.instructions.md   <-- Scoped to pom.xml (Java 17, Surefire, Playwright)
+│       ├── self-healing.instructions.md  <-- Scoped to target/** (Trace & log triage)
+│       └── jira-confluence.instructions.md <-- Atlassian formatting standards
 ├── .github/                          <-- Dual Repository-Level Compatibility Tree
 │   ├── agents/
 │   ├── hooks/
@@ -77,7 +81,20 @@ In previous versions of Copilot, teams relied on `.prompt.md` files. In the **Ag
 | **Packaging** | Flat text files | **Self-Contained Modules** (Markdown instructions, YAML metadata, bundled scripts) |
 | **Cross-Tool Portability** | VS Code Copilot only | **Universal Open Standard** (Compatible with VS Code, Copilot CLI, Claude Code, Cursor) |
 | **Tool Orchestration** | Cannot declare or bundle execution helpers | Bundles executable scripts (`scripts/publish_confluence_testcases.py`) |
-| **Governance** | Unstructured instructions | Enforces explicit **Human-in-the-Loop Checkpoints** |
+---
+
+## 📜 Modular Custom Instructions Suite
+
+GitHub Copilot combines global repository instructions (`copilot-instructions.md`) with path-specific instructions (`.instructions.md` with `applyTo:` globs) to deliver context-aware, razor-sharp guidance without polluting the global prompt window:
+
+| Instruction File | Scope (`applyTo`) | Enforced Rules & Patterns |
+| :--- | :--- | :--- |
+| **`copilot-instructions.md`** | **Global (All Files)** | Java 17+, Maven, Playwright Java stack, and the mandatory 5-Gate HITL governance protocol. |
+| **`page-objects.instructions.md`** | `src/main/java/com/orangehrm/pages/**` | `BasePage` inheritance, zero assertions in Page Objects, accessible locator priority (`getByRole`, `getByLabel`), AJAX spinner wait handling (`.oxd-form-loader`). |
+| **`e2e-tests.instructions.md`** | `src/test/java/com/orangehrm/tests/**` | `BaseTest` lifecycle, `@DisplayName("TC-ORHM-X-01: ...")`, AssertJ web-first assertions, test isolation, trace recording on failure. |
+| **`maven-build.instructions.md`** | `**/pom.xml` | Modern `--release 17` compiler flag, Surefire JUnitPlatformProvider, Playwright Java version locking, exec-maven CLI plugin. |
+| **`self-healing.instructions.md`** | `target/**` | Artifact triage hierarchy (Surefire -> logs -> traces -> screenshots), 3-way root-cause classification, strict Gate 5 approval before edits. |
+| **`jira-confluence.instructions.md`** | `**/*.md`, `**/scripts/**` | Jira issue formats (Gherkin ACs, structured bug reports) and Confluence Cloud XHTML storage format matrices in Space `SD`. |
 
 ---
 
