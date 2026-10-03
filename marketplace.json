@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Curated GitHub Copilot QA Automation Agents, Prompts, and MCP integrations for testing teams.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "qa-agents-automation",
       "description": "Full-lifecycle QA automation agent toolkit: Story Analysis, Story Estimation, Confluence Test Matrix Publisher, Java Playwright SDET, and Trace Viewer Self-Healing.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "source": "./",
       "tags": ["qa", "testing", "playwright", "java", "jira", "confluence"]
     }
