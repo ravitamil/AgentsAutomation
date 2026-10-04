@@ -1,0 +1,11 @@
+# Node / Python / OS artifacts
+node_modules/
+__pycache__/
+*.py[cod]
+.env
+*.log
+
+# Local presentation and session collateral (stored in qa-copilot-demo)
+presentation/
+docs/
+*.html
